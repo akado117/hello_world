@@ -181,6 +181,20 @@ Function displayHand($makeHands,$player){
 	");
 	
 }
+
+
+//used with function above to print the cards out
+//10-16-2013 AK
+function displayAllHandsTable($numPlayers,$makeHands){
+	printf ("<TABLE CELLSPACING=0 CELLPADDING=0>\n");
+		for($i=1;$i <= $numPlayers; $i++){
+			displayHand($makeHands,$i);
+		}
+		printf("</table>\n");
+ }
+
+
+
 //Used to display hands in an html format requires <ul> before and </ul> after due to modular design
 //Player is player number 1-8, $makeHands is an array with used cards then the arrays of player hands
 //10-9-2013 AK
@@ -194,6 +208,7 @@ Function displayHandb($makeHands,$player){
 	",$makeHands[$player][$i]);
 	}
 }
+
 
 //used to draw cards Somewhat inefficient in that it needs to iterate through the entire array every time a card is drawn
 //returns the reduced deck reindexed
@@ -229,34 +244,50 @@ Function drawCard($makeHands,$deck,$player){
 	return $makeHands;
 	//var_dump($makeHands[$player]);
 }
-//Discards a card and puts it in the discard array
-//returns make hands with the discarded card added to used cards array makeHands[0]
-//10-15-2013 AK
 
-//updates the discard pile (needs to be run after discard card completes
-//displays the discard pile (returns the last value of the usedCards array)
+
+//redisplays the discard pile
 //10-16-2013 AK
-Function updateDiscard($makeHands){
-
-	printf("<img border='0' src='reg_cards/%s.png' alt='discard'>",end($makeHands[0]));
-	return end($makeHands[0]);
-	
+Function displayPile($discardPile){
+	printf("<img border='0' src='reg_cards/%s.png' alt='discard'>",end($discardPile));
 }
 
+
+//Discards a card and puts it in the usedcards array
+//returns make hands with the discarded card added to used cards array makeHands[0]
+//10-15-2013 AK
 Function discardCard($makeHands,$dCard,$player){
 
 	//var_dump($makeHands[0]);
 	array_push($makeHands[0], $makeHands[$player][$dCard]);
 	//unsets the card
 	unset($makeHands[$player][$dCard]);
-	
-	
+		
 	$makeHands[$player] = array_values($makeHands[$player]);//reindexes the hands array
 	
 	return $makeHands;
 	//var_dump($makeHands[$player]);
 }
 
+
+//allows the player to draw from the discard pile
+//returns the updated discard pile
+//10-16-2013 AK
+function pileDraw($discardPile,$player,$makeHands){
+	array_push($makeHands[$player],array_pop($discardPile));
+	return $makeHands;
+}
+
+
+//used to check if a players hand has any books(sets of 3 or greater)
+//takes in the players hand,round number
+Function whatAreTheBooks($makeHands, $roundNum, $player){
+	for($i = 0; $i < count($makeHands[$player]); $i++){  //will iterate through the hand
+		
+
+
+	}
+}
 
 
 

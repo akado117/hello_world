@@ -46,7 +46,6 @@ if($_SESSION['numPlayers'])
 </table>
 \n",end($_SESSION['discardPile']));
 
-var_dump(end($_SESSION['discardPile']));
 
 //filters out cards that have already been used from the deck only runs once
 	if ($_SESSION['cardsPulledFromDeck'] == false){
@@ -59,6 +58,13 @@ $_SESSION['deck'] = $deck;
 //makes buttons to draw cards for the players that are playing
 for($i= 1; $i <= $numPlayers; $i++){
 		printf("<button type='button' data-xml='%s' class='drawCard'>Player %s draw</button>
+",$i,$i);
+	
+}
+printf("<br>\n");
+
+for($i= 1; $i <= $numPlayers; $i++){
+		printf("<button type='button' data-xml='%s' class='discardDraw'>Player %s draw from discard</button>
 ",$i,$i);
 	
 }
@@ -112,6 +118,19 @@ $(".discardCard").on("click", clickDiscard);
 			}
 		});
 		
+	});
+	
+	$(".discardDraw").click(function (){ //when an object with the drawCard class is clicked this happens
+		playerid = $(this).attr("data-xml"); //black magic that gets an attribute from the object that is clicked and stores to a variable
+		$.ajax({ //allows the use of this format otherwise $.post("url", {data:key}, function(html/xml retrieving from page)
+			type: "POST", //declares its a post type function
+			url: "drawCards.php", //calls upon drawCards.php
+			data: {player: playerid}, //sends data in object form to the post stack in drawCards.php
+			success: function(msg){ //what to do when the post request is successful
+				$('#playerHands').html(msg); //replaces anything within the id playerHands with html from drawCards.php
+				$(".discardCard").on("click", clickDiscard);
+			}
+		});
 	});
 	
 	

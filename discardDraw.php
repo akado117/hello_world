@@ -10,10 +10,9 @@
  $numDecks = $_SESSION['numDecks'];
  $deck = $_SESSION['deck'];
  $discardPile =$_SESSION['discardPile'];
+ $player =$_POST['player'];
  
-;
-//var_dump($holder);
-array_push($_SESSION['discardPile'], end($_SESSION['makeHands'][0]));
-//var_dump($_SESSION['discardPile']);
- displayPile($_SESSION['discardPile'])
+ 
+ $_SESSION['makeHands'] = pileDraw($discardPile,$player,$makeHands);
+ displayPile($_SESSION['discardPile']);
 ?>

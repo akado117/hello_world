@@ -21,10 +21,7 @@ $_SESSION['makeHands'] = discardCard($_SESSION['makeHands'],$_POST['dCard'],$_PO
 
 
 //reprints all the hands (ran through ajax to places old card html
-printf ("<TABLE CELLSPACING=0 CELLPADDING=0>\n");
-	for($i=1;$i <= $_SESSION['numPlayers']; $i++){
-		displayHand($_SESSION['makeHands'],$i);
-	}
-	printf("</table>\n");
+displayAllHandsTable($_SESSION['numPlayers'],$_SESSION['makeHands']);
+
  
 ?>

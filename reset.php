@@ -27,12 +27,7 @@ $_SESSION['deck'] = removeCardFromDeck($_SESSION['deck'],$_SESSION['usedCards'])
 //reset the discard pile 
 $_SESSION['discardPile'] = array('b1fve');
 
+displayAllHandsTable($_SESSION['numPlayers'],$_SESSION['makeHands']);
 
-printf ("<TABLE CELLSPACING=0 CELLPADDING=0>\n");
-	for($i=1;$i <= $_SESSION['numPlayers']; $i++){
-		displayHand($_SESSION['makeHands'],$i);
-	}
-	printf("</table>\n");
- 
 ?>
  

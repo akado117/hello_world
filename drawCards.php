@@ -17,11 +17,7 @@ $_SESSION['makeHands'] = drawCard($_SESSION['makeHands'],$_SESSION['deck'],$_POS
 
 
 
-printf ("<TABLE CELLSPACING=0 CELLPADDING=0>\n");
-	for($i=1;$i <= $_SESSION['numPlayers']; $i++){
-		displayHand($_SESSION['makeHands'],$i);
-	}
-	printf("</table>\n");
+displayAllHandsTable($_SESSION['numPlayers'],$_SESSION['makeHands']);
  
 ?>
  

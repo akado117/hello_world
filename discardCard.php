@@ -16,7 +16,7 @@
  //Returns the makeHands object updated with one more card depending upon what player it was attached to.
  //deck 
  
-var_dump($_POST['player']);
+//var_dump($_POST['player']);
 $_SESSION['makeHands'] = discardCard($_SESSION['makeHands'],$_POST['dCard'],$_POST['player']);
 
 

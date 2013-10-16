@@ -24,6 +24,9 @@ $_SESSION['usedCards'] = $_SESSION['makeHands'][0]; //draws usedCards from makeH
 //pull cards from deck and return the re-indexed deck
 $_SESSION['deck'] = removeCardFromDeck($_SESSION['deck'],$_SESSION['usedCards']);
 
+//reset the discard pile 
+$_SESSION['discardPile'] = array('b1fve');
+
 
 printf ("<TABLE CELLSPACING=0 CELLPADDING=0>\n");
 	for($i=1;$i <= $_SESSION['numPlayers']; $i++){

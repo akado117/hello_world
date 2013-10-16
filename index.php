@@ -38,6 +38,7 @@ else
 	$_SESSION['cardsPulledFromDeck'] = false;
 	//$_SESSION['usedCards'] = $usedCards;
 	//$_SESSION['makeHands'] = $makeHands;
+	$_SESSION['discardPile'] = array('b1fve');
 ?>
 
 

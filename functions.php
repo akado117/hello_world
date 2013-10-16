@@ -7,9 +7,6 @@ function makeDeck($numDecks){
 	$suit = array("c","s","d","h");
 	$card = array("a","2","3","4","5","6","7","8","9","10","j","q","k");
 	$counter= 0;
-	//Check if arrays were working and full
-	//var_dump($card);
-	
 	
 	//Logic for building the deck
 	//increments suit
@@ -27,14 +24,34 @@ function makeDeck($numDecks){
 }
 
 
+
+
+//used in the make hands function to keep duplicate cards from being pulled
+//takes in the used cards array, compares the randomly generated card and returns it if it's not currently in the //usedcard array 
+//returns the random card index $rand
+//10-16-2013
+function duplicate($usedCards,$numDecks){
+	
+	//generates a random number which will relate to a card within the deck
+	$rand = rand(0,($numDecks * 52 -1));
+	$bool= array_search($rand,$usedCards);
+	if( $bool === false ){ //if the value is found in the array run duplicate again
+		//var_dump($bool);
+		return($rand);//upon success return the chosen card
+	}
+	else{
+	return false;
+	}
+	
+}
 //edited 10/8/2013 AK
 //Make player hands section
 //returns player hands
 
 //Stuff to keep track of what cards to pull
-Function makeHands($numOfPlayers,$handSize, $numDecks, $deck){
+Function makeHands($numPlayers,$handSize, $numDecks, $deck){
 	//To check what's being passed
-	//var_dump($numOfPlayers);
+	//var_dump($numPlayers);
 	//var_dump($handSize);
 	//var_dump($numDecks);
 	//var_dump($deck);
@@ -56,14 +73,24 @@ Function makeHands($numOfPlayers,$handSize, $numDecks, $deck){
 	//used for determining which player's hand to complete
 	$player = 1;
 	//counter for indexing through usedCards
-	$counter = 0;
-	
+	$counter = 0;		
+
+	//will make an array of integers relating to what cards to pull into hands (no duplicates)	
+	$while=0;
+	$timer=0;
+	while($while < $handSize * $numPlayers){
+		$rand = duplicate($usedCards,$numDecks);
+		//var_dump($rand);
+		if($rand || 0){
+			array_push($usedCards,$rand);
+			$while++;
+		}
+		$timer++;
+		if($timer == $handSize * $numPlayers * 10){
+		Echo "Timed out";
+		$while = $handSize * $numPlayers;
+		}
 		
-	
-	//will make an array of integers relating to what cards to pull into hands 
-	//$usedCards
-	for($i = 0; $i < $handSize * $numOfPlayers; $i++){
-		$usedCards[$i] = rand(0,($numDecks * 52 -1));
 	}
 	//var_dump($numOfPlayers);
 	//var_dump($handSize);
@@ -73,7 +100,9 @@ Function makeHands($numOfPlayers,$handSize, $numDecks, $deck){
 	
 	
 	//used to assign cards to global $player
-	for($i = 0; $i < $numOfPlayers; $i++){
+	//var_dump($deck);
+	
+	for($i = 0; $i < $numPlayers; $i++){
 		
 		for($j = 0; $j < $handSize; $j++){
 			switch($player){
@@ -203,6 +232,17 @@ Function drawCard($makeHands,$deck,$player){
 //Discards a card and puts it in the discard array
 //returns make hands with the discarded card added to used cards array makeHands[0]
 //10-15-2013 AK
+
+//updates the discard pile (needs to be run after discard card completes
+//displays the discard pile (returns the last value of the usedCards array)
+//10-16-2013 AK
+Function updateDiscard($makeHands){
+
+	printf("<img border='0' src='reg_cards/%s.png' alt='discard'>",end($makeHands[0]));
+	return end($makeHands[0]);
+	
+}
+
 Function discardCard($makeHands,$dCard,$player){
 
 	//var_dump($makeHands[0]);
@@ -213,9 +253,14 @@ Function discardCard($makeHands,$dCard,$player){
 	
 	$makeHands[$player] = array_values($makeHands[$player]);//reindexes the hands array
 	
-	
-	//returns the updated $makeHands
 	return $makeHands;
 	//var_dump($makeHands[$player]);
 }
+
+
+
+
+
+
 ?>
+

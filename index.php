@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <title>The index page</title>
  </head>
-
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"> </script>
 <body>
 
 <?php
@@ -69,12 +69,23 @@ printf("</table>\n");
 		
 ?>
 
+<img border="0" src="reg_cards/h8.png">
+<p><a href="http://freeware.esoterica.free.fr/html/freecards.html"><b>Awesome card site</b></a></p>
+
+<button type='button' class='test'>Click to view hands</button>
+
+<script>
+var test = window.location.host;
+$('.test').click(function(){
+	window.location = "hands.php"
+	});
+</script>
+
 </body>
 
 
 
-<img border="0" src="reg_cards/h8.png">
-<p><a href="http://freeware.esoterica.free.fr/html/freecards.html"><b>Awesome card site</b></a></p>
+
 
 </html>
 

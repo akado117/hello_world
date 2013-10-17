@@ -35,7 +35,7 @@ function duplicate($usedCards,$numDecks){
 	//generates a random number which will relate to a card within the deck
 	$rand = rand(0,($numDecks * 52 -1));
 	$bool= array_search($rand,$usedCards);
-	if( $bool === false ){ //if the value is found in the array run duplicate again
+	if( $bool === false ){ //if the value is not found in the array return the value
 		//var_dump($bool);
 		return($rand);//upon success return the chosen card
 	}
@@ -44,10 +44,10 @@ function duplicate($usedCards,$numDecks){
 	}
 	
 }
+
 //edited 10/8/2013 AK
 //Make player hands section
 //returns player hands
-
 //Stuff to keep track of what cards to pull
 Function makeHands($numPlayers,$handSize, $numDecks, $deck){
 	//To check what's being passed
@@ -81,7 +81,7 @@ Function makeHands($numPlayers,$handSize, $numDecks, $deck){
 	while($while < $handSize * $numPlayers){
 		$rand = duplicate($usedCards,$numDecks);
 		//var_dump($rand);
-		if($rand || 0){
+		if($rand){
 			array_push($usedCards,$rand);
 			$while++;
 		}
@@ -230,14 +230,24 @@ Function removeCardFromDeck($deck,$usedCards){
 	return $deck;
 	
 }
-//draws a card from the deck (remember to feed in the reduced deck) removes card from deck and redisplays player hand
+//draws a random card from the deck by generating a random number that isn't in the drawn cards array
 //$makeHands is the array of hands, $deck is the deck, $player is the player number that is drawing the card (1-8)
 //10-11-2013 AK
-Function drawCard($makeHands,$deck,$player){
+Function drawCard($makeHands,$usedCards,$player,$numDecks,$deck){
+	$counter = 0;
+	
 	
 	//pulls a random card from the deck
+	while($counter < 10){ //makes sure random draw returns a real value
+		$rand = duplicate($usedCards,$numDecks);
+		if($rand){
+			$counter = 10;
+		}
+		$counter++; //anti-inf loop	
+	}
 	
-	array_push($makeHands[$player], $deck[rand(0,count($deck))-1]);
+	array_push($makeHands[$player], $deck[$rand]);
+	array_push($makeHands[0], $rand);
 	//var_dump($deck[rand(0,count($deck))]);
 	
 	//returns the updated $makeHands

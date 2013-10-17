@@ -21,8 +21,6 @@ $_SESSION['deck'] = makeDeck($_SESSION['numDecks']);
 $_SESSION['makeHands'] = makeHands($_SESSION['numPlayers'],$_SESSION['roundNum']+2,$_SESSION['numDecks'],$_SESSION['deck']);
 $_SESSION['usedCards'] = $_SESSION['makeHands'][0]; //draws usedCards from makeHands
 
-//pull cards from deck and return the re-indexed deck
-$_SESSION['deck'] = removeCardFromDeck($_SESSION['deck'],$_SESSION['usedCards']);
 
 //reset the discard pile 
 $_SESSION['discardPile'] = array('b1fve');

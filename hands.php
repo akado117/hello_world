@@ -16,12 +16,6 @@
 
 
 <?php
-if($_SESSION['numPlayers'])
-	{
-	printf("<p>Number of decks is: %s</p>
-<p>Number of players is: %s</p>
-<p>Round number is: %s</p>", $_SESSION['numDecks'],$_SESSION['numPlayers'],$_SESSION['roundNum']);
-	}
 	
 	$numPlayers = $_SESSION['numPlayers'];
 	$numDecks = $_SESSION['numDecks'];
@@ -29,7 +23,7 @@ if($_SESSION['numPlayers'])
 	$deck = $_SESSION['deck'];
 	$makeHands = $_SESSION['makeHands'];
 	$usedCards = $_SESSION['usedCards'];
-		
+	$discardPile = $_SESSION['discardPile'];
 	
 //initial display of  hands	
 	printf ("<div id='playerHands'><TABLE CELLSPACING=0 CELLPADDING=0>\n");
@@ -46,12 +40,6 @@ if($_SESSION['numPlayers'])
 </table>
 \n",end($_SESSION['discardPile']));
 
-
-//filters out cards that have already been used from the deck only runs once
-	if ($_SESSION['cardsPulledFromDeck'] == false){
-		$deck = removeCardFromDeck($deck,$usedCards);
-		$_SESSION['cardsPulledFromDeck'] = true;
-	}
 
 $_SESSION['deck'] = $deck;
 

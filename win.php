@@ -12,12 +12,15 @@
  $numDecks = $_SESSION['numDecks'];
  $deck = $_SESSION['deck'];
  $discardPile =$_SESSION['discardPile'];
+ $scores = $_SESSION['scores'];
  $player =$_POST['player'];
  
+ 
+ 
 
- pileDraw($_SESSION['discardPile'],$_POST['player'],$_SESSION['makeHands']);//moves one card from the discard pile to the players hand
+ $books = whatAreTheBooks($makeHands, $player);
+//var_dump($books);
 
+echo "<h3>the score is some large amount</h3>";
 
- //displays the updated hands
-displayAllHandsTable($_SESSION['numPlayers'],$_SESSION['makeHands']);
 ?>

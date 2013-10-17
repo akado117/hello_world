@@ -13,11 +13,8 @@
  
  //Returns the makeHands object updated with one more card depending upon what player it was attached to.
  //deck 
-$_SESSION['makeHands'] = drawCard($_SESSION['makeHands'],$_SESSION['usedCards'],
-$_POST['player'],$_SESSION['numDecks'],$_SESSION['deck']);
-
-$_SESSION['usedCards'] = $_SESSION['makeHands'][0];
-//var_dump($SESSION_['usedCards']);
+ //var_dump($_SESSION['usedCards']);
+drawCard($_SESSION['makeHands'],$_SESSION['usedCards'],$_POST['player'],$_SESSION['deck']);
 
 displayAllHandsTable($_SESSION['numPlayers'],$_SESSION['makeHands']);
  

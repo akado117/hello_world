@@ -21,8 +21,9 @@ if($_POST['numDecks'])
 else
 	{?><form action="index.php" method="post">
 	Number of Decks: <input type="text" name="numDecks"><br>
-	Number of Players (max of 8): <input type="text" name="numPlayers"><br>
+	Number of Players (max of 7): <input type="text" name="numPlayers"><br>
 	Round number(placeholder): <input type="text" name="roundNum"><br>
+	Player Number: <input type="text" name="player"><br>
 	<input type="submit">
 	</form><?php
 	}
@@ -39,6 +40,7 @@ else
 	//$_SESSION['usedCards'] = $usedCards;
 	//$_SESSION['makeHands'] = $makeHands;
 	$_SESSION['discardPile'] = array('b1fve');
+	$_SESSION['scores'] = array();
 ?>
 
 
@@ -57,19 +59,12 @@ $_SESSION['makeHands'] = makeHands($_SESSION['numPlayers'],$_SESSION['roundNum']
 $_SESSION['usedCards'] = $_SESSION['makeHands'][0]; //draws usedCards from makeHands
 //var_dump($makeHands);
 
-//display users hands (all hands, player number
-//to make it a bulletted list use displayHandb and change the tags before and after into <ul>
-printf ("<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=0>\n");
-for($i=1;$i <= $_SESSION['numPlayers'] ; $i++){
-	displayHand($_SESSION['makeHands'],$i);
-	}
-printf("</table>\n");
+
 
 
 		
 ?>
 
-<img border="0" src="reg_cards/h8.png">
 <p><a href="http://freeware.esoterica.free.fr/html/freecards.html"><b>Awesome card site</b></a></p>
 
 <button type='button' class='test'>Click to view hands</button>

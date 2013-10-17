@@ -11,7 +11,7 @@ function clickDiscard() {
             $('#playerHands').html(msg);
 			$.ajax({ //calls to update the discard pile
 				type: "POST", 
-				url: "discard.php", 
+				url: "displayPile.php", 
 				success: function(msg){  
 					$('#discardPile').html(msg);
 				}
@@ -20,7 +20,8 @@ function clickDiscard() {
             //alert('ajax function finishes')
         }
     });
-		
-	
-	
 }
+
+
+
+	

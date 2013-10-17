@@ -1,0 +1,10 @@
+body { background: lightblue; }
+
+button {background: 33FF99; font-weight: bold;}
+
+.combo {width: 71px; font-size: 9px; display:inline; float: left;margin-right: 10px;}
+#playerHand1{clear:both;}
+#playerHand2{clear:both;}
+#playerHand3{clear:both;}
+#playerHand4{clear:both;}
+#tools{ clear:both;}

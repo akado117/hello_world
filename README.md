@@ -1,7 +1,10 @@
 hello_world
 ===========
 
-5 crowns, a brief jump into the world of php app development. Using this as a "real world" learning experience and because creating things with code really is one of the greatest joys in life. 
+5 crowns, a brief jump into the world of php app development. Using this as a "real world" learning experience and 
+because creating things with code really is one of the greatest joys in life. 
+
+hosted at fivecrowns.comze.com
 
 
 

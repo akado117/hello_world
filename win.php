@@ -13,12 +13,13 @@
  $deck = $_SESSION['deck'];
  $discardPile =$_SESSION['discardPile'];
  $scores = $_SESSION['scores'];
+ $roundNum = $_SESSION['roundNum'] ;
  $player =$_POST['player'];
  
  
  
 
- $books = whatAreTheBooks($makeHands, $player);
+ $books = win($makeHands, $player, $roundNum);
 //var_dump($books);
 
 echo "<h3>the score is some large amount</h3>";

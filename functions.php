@@ -160,8 +160,8 @@ Function initRemoveCardFromDeck(&$deck,$usedCards){
 
 	//iterates through the used cards and removes them from the deck. The deck is then re-indexed and returned.
 	foreach($usedCards as $value){
-	//echo $deck[$value] . "<br>";
-	unset($deck[$value]);
+		//echo $deck[$value] . "<br>";
+		unset($deck[array_search($value,$deck)]);
 		
 	}
 	//re-indexes the array
@@ -245,33 +245,35 @@ Function displayHandb($makeHands,$player){
 //draws a random card from the deck by generating a random number that isn't in the drawn cards array
 //$makeHands is the array of hands, $deck is the deck, $player is the player number that is drawing the card (1-8)
 //10-11-2013 AK
-Function drawCard(&$makeHands,&$usedCards,$player,&$deck){
+Function drawCard(&$makeHands,&$usedCards,$player,&$deck,$numDecks){
 	
 	
-	
-	$rand =  array_rand($deck, 1);
-	array_push($makeHands[$player], $deck[$rand]);
+	$rand =  array_shift($deck);
+	array_push($makeHands[$player], $rand);
 	array_push($makeHands[0], $rand);
-	array_push($usedCards, $deck[$rand]); 
-
-	removeCardFromDeck($deck, $rand);
+	array_push($usedCards, $rand); 
+	
+	if(count($deck) < 1){
+		reshuffle($numDecks,$usedCards,$deck);
+	}
 		
+	;
+	
 	//returns the updated $makeHands
 	//var_dump($makeHands[$player]);
 }
 
 
-//unsets A value from the deck
-//takes in deck and random index ($rand) of the deck (deck is passed via reference so it will be modified within
-//10-17-2013 AK
-function removeCardFromDeck(&$deck, $rand){
-	unset($deck[$rand]);
+//shuffles the deck should the number of cards in it become less than 1
+function reshuffle($numDecks,$usedCards,&$deck){
+	
+	$deck = makeDeck($numDecks);
+	foreach($usedCards as $value){ //foreach usedCard remove it from the new deck
+		unset($deck[array_search($value, $deck)]);
+	}
 	$deck = array_values($deck);
+	return $deck;
 }
-
-
-//shuffles the deck in the event the deck runs out of cards
-//takes in $deck by reference cards in hands
 
 
 //redisplays the discard pile
@@ -307,13 +309,67 @@ function pileDraw(&$discardPile,$player,&$makeHands){
 }
 
 
+
+//sets cards to aces which are wild depending upon the round. 
+Function setWild( &$makeHands,$player,$roundNum){
+	$wildCard = array('holder','3','4','5','6','7','8','9','10','j','q','k');
+	foreach($makeHands[$player] as &$value){
+		if($value[1] == $wildCard[$roundNum]){
+			$value = 'ca'; //aces are wild so it'll set the wildcard to an ace of clubs
+		}
+	
+	}
+}
+
+function win($makeHands, $player, $roundNum){
+	
+	setWild($makeHands,$player,$roundNum);
+	
+	$allRuns = whatAreTheRuns($makeHands, $player, $roundNum);
+	var_dump($allRuns);
+	
+}
+
 //used to check if a players hand has any books(sets of 3 or greater)
 //takes in the players hand,round number
-Function whatAreTheBooks($makeHands, $player){
-	$books = array();//Stores a book in progress
-	$allBooks= array();//stores the array of books
-	$counter = 0;
-	for($i = 0; $i < count($makeHands[$player])-1; $i++){  //will iterate through the hand
+Function whatAreTheRuns($makeHands, $player, $roundNum){
+	$runs = array();//Stores a book in progress
+	$allRuns= array();//stores the array of books
+	$counter = 1;
+	sort($makeHands[$player]);
+	
+	
+	for($i = 0; $i < count($makeHands[$player])-1; $i++){
+		if($makeHands[$player][$i][0] == ($makeHands[$player][$i+1][0] || 'a')){
+			if(empty($runs)){
+				array_push($runs, $makeHands[$player][$i]);
+			}
+			
+			array_push($runs, $makeHands[$player][$i+1]);
+			$counter++;
+			//var_dump($makeHands[$player]);
+			//var_dump($runs);
+			//var_dump($counter);
+		}
+		else{
+			echo "<h1>counter is reset</h1>";
+			$counter = 1;
+			$runs = array();
+		}
+		if($counter === 3){
+			
+			foreach($runs as $value){
+				array_push($allRuns, $value);
+			}	
+			//var_dump($allRuns);
+			//var_dump($counter);
+		}
+		if($counter > 3){
+			array_push($allRuns, end($runs));
+		}
+	}
+		
+	/*for($i = 0; $i < count($makeHands[$player])-1; $i++){  //will iterate through the hand
 		if($makeHands[$player][$i][0] == $makeHands[$player][$i+1][0]){
 			echo "<h1>" . $i. " and ".($i+1) . " are the same<h1>";
 			$counter++;
@@ -327,7 +383,7 @@ Function whatAreTheBooks($makeHands, $player){
 		}
 		else{
 			echo "<h1>counter is reset</h1>";
-			$counter = 0;
+			$counter = 1;
 			$books = array();
 		}
 		if($counter === 3){
@@ -336,9 +392,10 @@ Function whatAreTheBooks($makeHands, $player){
 		if($counter > 3){
 			array_push($allBooks, end($books));
 		}
-	}
-	return $allBooks;
-	//var_dump($allBooks);
+	}*/
+	//var_dump($allRuns);
+	return $allRuns;
+	
 }
 
 

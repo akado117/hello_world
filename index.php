@@ -12,25 +12,29 @@
 <?php
 
 //to determine what's on the form
-if($_POST['numDecks'])
+if($_POST['player'])
 	{
 	printf("<p>Number of decks is: %s</p>
 <p>Number of players is: %s</p>
-<p>Round number is: %s</p>", $_POST['numDecks'],$_POST['numPlayers'],$_POST['roundNum']);
+<p>Round number is: %s</p>", $_SESSION['numDecks'],$_POST['numPlayers'],$_POST['roundNum']);
 	}
 else
 	{?><form action="index.php" method="post">
-	Number of Decks: <input type="text" name="numDecks"><br>
+	<?php
+	//Number of Decks: <input type="text" name="numDecks"><br>
+	?>
 	Number of Players (max of 7): <input type="text" name="numPlayers"><br>
 	Round number(placeholder): <input type="text" name="roundNum"><br>
-	Player Number: <input type="text" name="player"><br>
+	Player Name: <input type="text" name="player"><br>
 	<input type="submit">
 	</form><?php
 	}
 	$numPlayers = $_POST['numPlayers'];
-	$numDecks = $_POST['numDecks'];
+	//$numDecks = $_POST['numDecks'];
 	$roundNum = $_POST['roundNum'];
 	
+	//hard coded because the game naturally uses 104 cards
+	$numDecks = 2;
 	//store all session variables here for record keeping= also set some of them to form data or other things
 	$_SESSION['numPlayers'] = $numPlayers;
 	$_SESSION['numDecks'] = $numDecks;

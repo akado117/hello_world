@@ -25,8 +25,6 @@ function makeDeck($numDecks){
 }
 
 
-
-
 //used in the make hands function to keep duplicate cards from being pulled
 //takes in the deck and current used cards, compares the random value generated and makes sure it's not already used, 
 //then returns the random card, returns false if the card is already used (function will need to be looped until a 
@@ -205,7 +203,7 @@ Function displayHand($makeHands,$player){
 //used with function above to print the cards out
 //10-16-2013 AK
 function displayAllHandsTable($numPlayers,$makeHands){
-	printf ("<ul>\n");
+	printf ("<ul id='allcard'>\n");
 		for($i=1;$i <= $numPlayers; $i++){
 			displayHandb($makeHands,$i);
 		}
@@ -264,7 +262,9 @@ Function drawCard(&$makeHands,&$usedCards,$player,&$deck,$numDecks){
 }
 
 
-//shuffles the deck should the number of cards in it become less than 1
+//shuffles the deck and removes and used cards from it
+//modifies the deck
+//10-18-2013
 function reshuffle($numDecks,$usedCards,&$deck){
 	
 	$deck = makeDeck($numDecks);
@@ -315,7 +315,7 @@ Function setWild( &$makeHands,$player,$roundNum){
 	$wildCard = array('holder','3','4','5','6','7','8','9','10','j','q','k');
 	foreach($makeHands[$player] as &$value){
 		if($value[1] == $wildCard[$roundNum]){
-			$value = 'ca'; //aces are wild so it'll set the wildcard to an ace of clubs
+			$value = 'sa'; //aces are wild so it'll set the wildcard to an ace of spades
 		}
 	
 	}
@@ -326,11 +326,11 @@ function win($makeHands, $player, $roundNum){
 	setWild($makeHands,$player,$roundNum);
 	
 	$allRuns = whatAreTheRuns($makeHands, $player, $roundNum);
-	var_dump($allRuns);
+	//var_dump($allRuns);
 	
 }
 
-//used to check if a players hand has any books(sets of 3 or greater)
+//used to check if a players hand has any runs (a set of 
 //takes in the players hand,round number
 Function whatAreTheRuns($makeHands, $player, $roundNum){
 	$runs = array();//Stores a book in progress
@@ -399,6 +399,45 @@ Function whatAreTheRuns($makeHands, $player, $roundNum){
 }
 
 
+//takes in the scores array and outputs the scores 
+function scores($scores){
+	echo "<h3>";
+	switch(count($scores)){
+		case 0:
+			printf("There are no scores");
+			break;
+		case 1:
+			printf("The Scores are Player 1:%s\n",$scores[0]);
+			break;	
+		case 2:
+			printf("The Scores are Player 1:%s, Player 2:%s\n",$scores[0],$scores[1]);
+			break;
+		case 3:
+			printf("The Scores are Player 1:%s, Player 2:%s, Player 3:%s\n",$scores[0],$scores[1],$scores[2]);
+			break;
+		case 4:
+			printf("The Scores are Player 1:%s, Player 2:%s, Player 3:%s, Player 4:%s\n",$scores[0],$scores[1],$scores[2],$scores[3]);
+			break;
+		case 5:
+			printf("The Scores are Player 1:%s, Player 2:%s, Player 3:%s, Player 4:%s, 
+		Player 5: %s\n",$scores[0],$scores[1],$scores[2],$scores[3],$scores[4]);
+			break;	
+		case 6:
+			printf("The Scores are Player 1:%s, Player 2:%s, Player 3:%s, Player 4:%s, 
+		Player 5:%s, Player 6:%s\n",$scores[0],$scores[1],$scores[2],$scores[3],$scores[4],$scores[5]);
+			break;
+		case 7:
+			printf("The Scores are Player 1:%s, Player 2:%s, Player 3:%s, Player 4:%s, 
+		Player 5:%s, Player 6:%s, Player 7:%s \n",$scores[0],$scores[1],$scores[2],$scores[3],$scores[4],$scores[5],$scores[6]);
+			break;
+		case 8:
+			printf("The Scores are Player 1:%s, Player 2:%s, Player 3:%s, Player 4:%s, 
+		Player 5:%s, Player 6:%s, Player 7:%s, Player 8:%s\n",$scores[0],$scores[1],$scores[2],$scores[3],$scores[4],$scores[5],$scores[6], $scores[7]);
+			break;
+	}
+	echo "</h3>";
+}		
 
 ?>
 
+"

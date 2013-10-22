@@ -22,6 +22,10 @@
  $books = win($makeHands, $player, $roundNum);
 //var_dump($books);
 
-echo "<h3>the score is some large amount</h3>";
+//echo "<h3>the score is some large amount</h3>";
+$scores = array('1','2','3','4','5','6','7','8');
+scores($scores);
+
+
 
 ?>

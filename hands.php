@@ -1,15 +1,17 @@
 <?php session_start(); ?>
-<?php include 'functions.php' ?>
-<DOCTYPE html>
+
+<!DOCTYPE HTML>
 <html lang="en">
+
 <head>
 <meta charset="utf-8" />
 <title>Page two test</title>
 
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"> </script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="functions.js"></script>
 <link rel='stylesheet' type='text/css' href='style.css'>
- </head>
+<?php include('functions.php');?>
+</head>
 
 <body>
 <div id='score'>

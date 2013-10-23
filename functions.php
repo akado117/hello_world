@@ -209,7 +209,15 @@ function displayAllHandsTable($numPlayers,$makeHands){
 		}
 		printf("</ul>\n");
  }
-
+ 
+ //same as above but for checkbox selection
+function displayAllHandsCheckBox($numPlayers,$makeHands){
+	printf ("<ul id='allcard'>\n");
+		for($i=1;$i <= $numPlayers; $i++){
+			displayHandCheckBox($makeHands,$i);
+		}
+		printf("</ul>\n");
+ }
 
 //Used to display hands in an html format requires <ul> before and </ul> after due to modular design
 //Player is player number 1-8, $makeHands is an array with used cards then the arrays of player hands
@@ -228,6 +236,35 @@ Function displayHandb($makeHands,$player){
 	
 		$j = $i+ 1;
 		printf("<button type='button' data-xml='%s' dCard='%s' class='discardCard' class='dbutton'>Discard %s</button>\n", $player,$i,$j);
+		printf("</div>\n");
+	}
+	
+	printf("</div>
+	");
+	
+	//makes discard buttons based upon the number of cards in hand
+	
+	
+}
+
+//Used to display hands in an html format requires <ul> before and </ul> after due to modular design
+//Player is player number 1-8, $makeHands is an array with used cards then the arrays of player hands
+//updated the buttons to be radials that the user can use to select cards.
+//10-9-2013 AK
+Function displayHandCheckBox($makeHands,$player){
+	
+	
+	printf("<div id='playerHand%s' class='player%s'>\n",$player,$player);
+	//printf("	<li>Player %s's Hand<li>
+	//", $player);
+	//makes the hand display
+	for($i = 0; $i < count($makeHands[$player]); $i++){
+		printf("<div class='combo'>\n");//contain the card button combo in a class called combo
+	
+		printf("<img border='0' class='card' src='reg_cards/%s.png'>\n",$makeHands[$player][$i]);//bring in image
+	
+		$j = $i+ 1;
+		printf("<b><input type='checkbox' name='player%s' data-xml='%s' value='%s' class='checkedCards player%s'>Hold %s</b>\n", $player, $player,$i,$j,$j);
 		printf("</div>\n");
 	}
 	
@@ -311,11 +348,12 @@ function pileDraw(&$discardPile,$player,&$makeHands){
 
 
 //sets cards to aces which are wild depending upon the round. 
+//modifies the hands directly based upon the player and round number (the round number dictates what is wild)
 Function setWild( &$makeHands,$player,$roundNum){
 	$wildCard = array('holder','3','4','5','6','7','8','9','10','j','q','k');
 	foreach($makeHands[$player] as &$value){
 		if($value[1] == $wildCard[$roundNum]){
-			$value = 'sa'; //aces are wild so it'll set the wildcard to an ace of spades
+			$value = 'ca'; //aces are wild so it'll set the wildcard to an ace of spades
 		}
 	
 	}

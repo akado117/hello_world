@@ -51,25 +51,29 @@ printf("<div id='tools'>\n");
 
 //makes buttons to draw cards for the players that are playing
 for($i= 1; $i <= $numPlayers; $i++){
-		printf("<button type='button' data-xml='%s' class='drawCard'>Player %s draw</button>
-",$i,$i);
+		printf("<button type='button' data-xml='%s' class='player%s drawCard'>Player %s draw</button>
+",$i,$i,$i);
+	
+}
+printf("<br>\n");
+
+//discard draw buttons
+for($i= 1; $i <= $numPlayers; $i++){
+		printf("<button type='button' data-xml='%s' class='player%s discardDraw'>Player %s draw from discard</button>
+",$i,$i,$i);
 	
 }
 printf("<br>\n");
 
 for($i= 1; $i <= $numPlayers; $i++){
-		printf("<button type='button' data-xml='%s' class='discardDraw'>Player %s draw from discard</button>
-",$i,$i);
-	
+	printf("<button type='button' data-xml='%s' class='player%s win'>I THINK I WON! player%s</button>\n",$i,$i,$i);
 }
-printf("<br>\n");
+echo "<br>";
 ?>
 
 <button type='button' class='reset'>Reset and draw new hands</button><br>
 
-<button type='button' data-xml='1' class='win'>I THINK I WON! player1</button>
-<button type='button' data-xml='2' class='win'>I THINK I WON! player2</button>
-<button type='button' data-xml='3' class='win'>I THINK I WON! player3</button>
+
 
 <div id='testsection'>
 <button type='button' class='test'>Test</button>
@@ -136,7 +140,7 @@ $(".discardCard").on("click", clickDiscard);
 		});
 		
 	});
-	
+		
 	$(".discardDraw").click(function (){ //when an object with the drawCard class is clicked this happens
 		playerid = $(this).attr("data-xml"); //black magic that gets an attribute from the object that is clicked and stores to a variable
 		$.ajax({ 
@@ -158,14 +162,14 @@ $(".discardCard").on("click", clickDiscard);
 	});
 	
 	//used to test if the game has been won
-	$(".win").click(function (){ 
+	$(".win").click(function (){
 		playerid = $(this).attr("data-xml"); 
 		$.ajax({ 
-			type: "POST", 
-			url: "win.php", 
+			type: "POST",
+			url: "checkBox.php", 
 			data: {player: playerid},
 			success: function(msg){ 
-				$('#score').html(msg); 
+				$('#playerHands').html(msg); 
 			}
 		});
 	});

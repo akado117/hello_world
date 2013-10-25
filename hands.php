@@ -18,6 +18,11 @@
 <h3>The scores are: </h3>
 </div>
 
+<div id='instructions'>
+<p>Click the card to discard it</p>
+<p>Buttons at the bottom will allow you to add cards to the players hand from the deck or from the discard pile</p>
+</div>
+
 <?php
 	
 	$numPlayers = $_SESSION['numPlayers'];
@@ -103,7 +108,7 @@ $(document).ready(function() { //makes sure the page is ready
 	});
 
 //discard card ajax function that rebinds the AJAX functionality
-$(".discardCard").on("click", clickDiscard);
+$(".card").on("click", clickDiscard);
 
 
 
@@ -127,7 +132,7 @@ $(".discardCard").on("click", clickDiscard);
 			url: "reset.php",
 			success: function(msg){
 				$('#playerHands').html(msg);
-				$(".discardCard").on("click", clickDiscard);
+				$(".card").on("click", clickDiscard);
 				$.ajax({
 					type: "POST",
 					url: "displayPile.php",
@@ -149,7 +154,7 @@ $(".discardCard").on("click", clickDiscard);
 			data: {player: playerid},
 			success: function(msg){ 
 				$('#playerHands').html(msg); 
-				$(".discardCard").on("click", clickDiscard);//reattaches the click to discard functionality to the dynamic buttons 
+				$(".card").on("click", clickDiscard);//reattaches the click to discard functionality to the dynamic buttons 
 				$.ajax({ 
 					type: "POST", 
 					url: "displayPile.php", 

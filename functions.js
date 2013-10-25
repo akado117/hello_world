@@ -16,7 +16,7 @@ function clickDiscard() {
 					$('#discardPile').html(msg);
 				}
 			});
-            $(".discardCard").on("click", clickDiscard);
+            $(".card").on("click", clickDiscard);
             //alert('ajax function finishes')
         }
     });

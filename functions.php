@@ -172,7 +172,7 @@ Function initRemoveCardFromDeck(&$deck,$usedCards){
 //Used to display hands in an html format requires <table> before and </table> after due to modular design
 //Player is player number 1-8, $makeHands is an array with used cards then the arrays of player hands
 //returns nothing
-//10-9-2013 AK
+//10-9-2013 AK				NOT USED ANYMORE
 Function displayHand($makeHands,$player){
 	
 	printf("	<tr>
@@ -225,22 +225,23 @@ function displayAllHandsCheckBox($numPlayers,$makeHands){
 Function displayHandb($makeHands,$player){
 	
 	
-	printf("<div id='playerHand%s' class='player%s'>\n",$player,$player);
+	printf("<div id='playerHand%s' class='player%s'>\n<p>Player %s's Hand</p>\n",$player,$player,$player);
 	//printf("	<li>Player %s's Hand<li>
 	//", $player);
 	//makes the hand display
 	for($i = 0; $i < count($makeHands[$player]); $i++){
 		printf("<div class='combo'>\n");//contain the card button combo in a class called combo
 	
-		printf("<img border='0' class='card' src='reg_cards/%s.png'>\n",$makeHands[$player][$i]);//bring in image
-	
+		printf("<img border='0' class='card' data-xml='%s' dCard='%s' src='reg_cards/%s.png'>\n",$player,$i,$makeHands[$player][$i]);//bring in image
+	/* OBSOLETE CODE ABLE TO CLICK ON THE CARDS TO DISCARD
 		$j = $i+ 1;
 		printf("<button type='button' data-xml='%s' dCard='%s' class='discardCard' class='dbutton'>Discard %s</button>\n", $player,$i,$j);
+	*/
+		
 		printf("</div>\n");
 	}
 	
-	printf("</div>
-	");
+	printf("</div>\n\n");
 	
 	//makes discard buttons based upon the number of cards in hand
 	
@@ -264,12 +265,11 @@ Function displayHandCheckBox($makeHands,$player){
 		printf("<img border='0' class='card' src='reg_cards/%s.png'>\n",$makeHands[$player][$i]);//bring in image
 	
 		$j = $i+ 1;
-		printf("<b><input type='checkbox' name='player%s' data-xml='%s' value='%s' class='checkedCards player%s'>Hold %s</b>\n", $player, $player,$i,$j,$j);
+		printf("<b><input type='checkbox' name='playerCheck%s' data-xml='%s' value='%s' class='checkedCards player%s'>Hold %s</b>\n", $player, $player,$i,$j,$j);
 		printf("</div>\n");
 	}
 	
-	printf("</div>
-	");
+	printf("</div>\n\n");
 	
 	//makes discard buttons based upon the number of cards in hand
 	
@@ -477,5 +477,3 @@ function scores($scores){
 }		
 
 ?>
-
-"
